@@ -1,0 +1,14 @@
+  defaults: &defaults
+    computer_path: "/home/ilia/distr/aries_diser"
+    filename: 'al_vac_500_medium.txt'
+    needed: ['exp', 'title']
+
+  development:
+    <<: *defaults
+
+  test:
+    <<: *defaults
+
+  production:
+    <<: *defaults
+

@@ -1,0 +1,50 @@
+<%= form_for @task  do |f| %>
+
+  <%= render 'shared/error_messages', :object => f.object %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :exp %><br />
+    <%= f.text_field :exp %>
+  </div>
+  
+  <% f.fields_for :nzones do |builder| %>
+    <p>
+      <%= builder.label :l, 'L: ' %>
+      <%= builder.text_field :l %>
+    </p>
+    <p>
+      <%= builder.label :nSize, 'nSize: ' %>
+      <%= builder.text_field :nSize %>
+    </p>
+    <p>
+      <%= builder.label :ro, 'ro: ' %>
+      <%= builder.text_field :ro %>
+    </p>
+    <p>
+      <%= builder.label :ti, 'ti: ' %>
+      <%= builder.text_field :ti %>
+    </p>
+    <p>
+      <%= builder.label :te, 'te: ' %>
+      <%= builder.text_field :te %>
+    </p>
+    <p>
+      <%= builder.label :v, 'v: ' %>
+      <%= builder.text_field :v %>
+    </p>
+    <p>
+      <%= builder.label :exp, 'exp: ' %>
+      <%= builder.text_field :exp %>
+    </p>
+  <% end %>
+  
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

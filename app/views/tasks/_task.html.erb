@@ -1,0 +1,9 @@
+<div>
+    <span class="content"><%= link_to task.title, task %></span>
+    <span class="timestamp">
+      Posted <%= time_ago_in_words(task.created_at) %> ago.
+    </span>
+    <span class="destroy"><%= link_to "delete", task, :method => :delete,
+                                     :confirm => "You sure?",
+                                     :title => task.title %></span>
+</div>
