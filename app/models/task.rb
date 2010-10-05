@@ -20,14 +20,13 @@
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :exp, :title
+
   
   has_many :nzones, :dependent => :destroy
-  accepts_nested_attributes_for :nzones
+  accepts_nested_attributes_for :nzones, :reject_if => lambda { |a| a[:nSize].blank? }
 
   default_scope :order => 'tasks.created_at DESC'
   
-  validates :exp, :presence => true, :numericality => true
   validates :title, :presence => true, :length => { :maximum => 140 }
 
   

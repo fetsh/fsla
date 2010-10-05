@@ -6,42 +6,73 @@
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
+  <table><tr><td>
   <div class="field">
-    <%= f.label :exp %><br />
-    <%= f.text_field :exp %>
+      <%= f.check_box :HydroStage %>
+    <%= f.label :HydroStage %>
   </div>
-  
-  <% f.fields_for :nzones do |builder| %>
-    <p>
-      <%= builder.label :l, 'L: ' %>
-      <%= builder.text_field :l %>
-    </p>
-    <p>
-      <%= builder.label :nSize, 'nSize: ' %>
-      <%= builder.text_field :nSize %>
-    </p>
-    <p>
-      <%= builder.label :ro, 'ro: ' %>
-      <%= builder.text_field :ro %>
-    </p>
-    <p>
-      <%= builder.label :ti, 'ti: ' %>
-      <%= builder.text_field :ti %>
-    </p>
-    <p>
-      <%= builder.label :te, 'te: ' %>
-      <%= builder.text_field :te %>
-    </p>
-    <p>
-      <%= builder.label :v, 'v: ' %>
-      <%= builder.text_field :v %>
-    </p>
-    <p>
-      <%= builder.label :exp, 'exp: ' %>
-      <%= builder.text_field :exp %>
-    </p>
-  <% end %>
-  
+  <div class="field">
+    <%= f.check_box :HeatStage %>
+    <%= f.label :HeatStage %>
+  </div>
+  <div class="field">
+    <%= f.check_box :ExchangeStage %>
+    <%= f.label :ExchangeStage %>
+  </div>
+  <div class="field">
+    <%= f.label :source %>: <%= f.select :source, options_for_select([['Al', true], ['Al_glass', false]]) %> 
+  </div>
+  </td><td>
+  <div class="field">
+    <%= f.label :tauPulse %>: <%= f.text_field :tauPulse %> e-15
+  </div>
+  <div class="field">
+    <%= f.label :fluence %>: <%= f.text_field :fluence %>
+  </div>
+  <div class="field">
+    <%= f.label :deltaSkin %>: <%= f.text_field :deltaSkin %>e-9
+  </div>
+  <div class="field">
+    <%= f.label :courant %>: <%= f.text_field :courant %>
+  </div>
+  <div class="field">
+    <%= f.label :maxTime %>: <%= f.text_field :maxTime %>e-12
+  </div>
+  </td></tr></table>
+  <% if :nzones -%>
+  <div class='nzones_form round'>
+      <h4>nZone</h4>
+      <% f.fields_for :nzones do |builder| %>
+      <div>
+        <%= builder.label :l, 'L: ' %>
+        <%= builder.text_field :l %>
+      </div>
+      <div>
+        <%= builder.label :nSize, 'nSize: ' %>
+        <%= builder.text_field :nSize %>
+      </div>
+      <div>
+        <%= builder.label :ro, 'ro: ' %>
+        <%= builder.text_field :ro %>
+      </div>
+      <div>
+        <%= builder.label :ti, 'ti: ' %>
+        <%= builder.text_field :ti %>
+      </div>
+      <div>
+        <%= builder.label :te, 'te: ' %>
+        <%= builder.text_field :te %>
+      </div>
+      <div>
+        <%= builder.label :v, 'v: ' %>
+        <%= builder.text_field :v %>
+      </div>
+      <div>
+        <%= builder.hidden_field(:exp, :value => "0.0") %> 
+      </div>
+    <% end %>
+  </div
+  <% end -%>  
   
   <div class="actions">
     <%= f.submit %>

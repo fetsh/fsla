@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101003220620) do
+ActiveRecord::Schema.define(:version => 20101004162835) do
 
   create_table "nzones", :force => true do |t|
     t.integer  "task_id"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(:version => 20101003220620) do
   end
 
   add_index "nzones", ["task_id"], :name => "index_nzones_on_task_id"
+
+  create_table "pzones", :force => true do |t|
+    t.integer  "task_id"
+    t.string   "l"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tasks", :force => true do |t|
     t.string   "title"

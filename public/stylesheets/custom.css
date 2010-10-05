@@ -100,3 +100,12 @@ footer nav {
   float: none;
 }
 
+
+/* Forms */
+
+.nzones_form {
+  padding: 7px;
+  border: solid 1px #BDBDBD;
+  background-color: #efefef;
+  width: 300px;
+}

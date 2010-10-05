@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new (params[:task])
+    @task = Task.new(params[:task])
     
     if @task.save
     

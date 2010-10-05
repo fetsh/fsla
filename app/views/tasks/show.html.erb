@@ -1,10 +1,8 @@
 <h2><%= @task.title %></h2>
 <p>exp: <%= @task.exp %></p>
-<h3>nZone</h3>
+<h3>nZones</h3>
 <ul>
 <% for nzone in @task.nzones %>
-  
   <li> <%=h nzone.l %> </li>
-
 <% end %>
 </ul>
