@@ -58,10 +58,33 @@ class TasksController < ApplicationController
     
     def prepare_text(task)
       text = "EOSType = table\n	TableDir = new\n	TableFlag = extended\nMethod = lagrange\n"
-      task.attribute_names.each do |a|
-        text << a + " = " + task.attributes[a].to_s + "\n" if Settings.needed.include? a
+      text << append_boolean(task, "HydroStage", "1", "0")
+      text << append_boolean(task, "HeatStage", "1", "0")
+      text << append_boolean(task, "ExchangeStage", "1", "0")
+      text << "IonizationStage = 0\n\n"
+      text << append_boolean(task, "source", "Al", "Al_glass")
+      text << "tauPulse = " + task.tauPulse.to_s + "e-15\n"
+      text << "fluence = " + task.fluence.to_s + "\n"
+      text << "deltaSkin = " + task.deltaSkin.to_s + "e-9\n\n"
+      text << "courant = " + task.courant.to_s + "\n"
+      text << "viscosity = 1\n\n"
+      text << "maxTime = " + task.maxTime.to_s + "e-12\n\n"
+      text << "nZones = " + task.nzones.count.to_s + "\n\n"
+      
+      task.nzones.each do |nzone|
+        text << "l = " + nzone.l.to_s + "e-9\n"
+        text << "nSize = " + nzone.nSize.to_s + "\n"
+        text << "ro = " + nzone.ro.to_s + "\n"
+        text << "ti = " + nzone.ti.to_s + "\n"
+        text << "te = " + nzone.te.to_s + "\n"
+        text << "v = " + nzone.v.to_s + "\n"
+        text << "exp = " + nzone.exp.to_s + "\n\n"
       end
+      
       text
     end
-    
+
+    def append_boolean(task, name, trueval, falseval)
+      name + ' = ' + ( task.attributes[name] ? trueval.to_s : falseval.to_s ) + "\n"
+    end
 end

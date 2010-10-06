@@ -105,7 +105,9 @@ footer nav {
 
 .nzones_form {
   padding: 7px;
+  margin: 7px;
   border: solid 1px #BDBDBD;
   background-color: #efefef;
   width: 300px;
+  float: left;
 }

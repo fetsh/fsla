@@ -39,40 +39,13 @@
     <%= f.label :maxTime %>: <%= f.text_field :maxTime %>e-12
   </div>
   </td></tr></table>
-  <% if :nzones -%>
-  <div class='nzones_form round'>
-      <h4>nZone</h4>
+    <div style="overflow:auto; width: 100%;">
       <% f.fields_for :nzones do |builder| %>
-      <div>
-        <%= builder.label :l, 'L: ' %>
-        <%= builder.text_field :l %>
-      </div>
-      <div>
-        <%= builder.label :nSize, 'nSize: ' %>
-        <%= builder.text_field :nSize %>
-      </div>
-      <div>
-        <%= builder.label :ro, 'ro: ' %>
-        <%= builder.text_field :ro %>
-      </div>
-      <div>
-        <%= builder.label :ti, 'ti: ' %>
-        <%= builder.text_field :ti %>
-      </div>
-      <div>
-        <%= builder.label :te, 'te: ' %>
-        <%= builder.text_field :te %>
-      </div>
-      <div>
-        <%= builder.label :v, 'v: ' %>
-        <%= builder.text_field :v %>
-      </div>
-      <div>
-        <%= builder.hidden_field(:exp, :value => "0.0") %> 
-      </div>
-    <% end %>
-  </div
-  <% end -%>  
+        <%= render 'nzone_fields', :f => builder %>
+      <% end %>
+<p>      <%= link_to_add_fields "Add nZone", f, :nzones %></p> 
+    </div>
+  
   
   <div class="actions">
     <%= f.submit %>

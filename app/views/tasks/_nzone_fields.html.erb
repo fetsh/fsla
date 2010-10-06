@@ -1,0 +1,33 @@
+    <div class='nzones_form round'>
+      <h4>nZone</h4>
+
+<div>
+  <%= f.label :l, 'L: ' %>
+  <%= f.text_field :l %>
+</div>
+<div>
+  <%= f.label :nSize, 'nSize: ' %>
+  <%= f.text_field :nSize %>
+</div>
+<div>
+  <%= f.label :ro, 'ro: ' %>
+  <%= f.text_field :ro %>
+</div>
+<div>
+  <%= f.label :ti, 'ti: ' %>
+  <%= f.text_field :ti %>
+</div>
+<div>
+  <%= f.label :te, 'te: ' %>
+  <%= f.text_field :te %>
+</div>
+<div>
+  <%= f.label :v, 'v: ' %>
+  <%= f.text_field :v %>
+</div>
+<div>
+  <%= f.hidden_field(:exp, :value => "0.0") %> 
+</div>
+<%= f.hidden_field :_destroy %>
+<%= link_to_function 'remove', 'remove_nzone(this)' %>
+    </div>
