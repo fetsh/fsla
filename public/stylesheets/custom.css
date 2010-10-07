@@ -3,7 +3,8 @@
 }
 
 body {
-  background: #cff;
+  background: #efefef;
+  
 }
 
 header {
@@ -19,6 +20,9 @@ section {
   font-size: 120%;
   padding: 20px;
   background: #fff;
+  border-color: #DDDDDD;
+  border-style: solid;
+  border-width: 1px;
 }
 
 section h1 {
