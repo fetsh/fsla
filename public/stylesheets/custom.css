@@ -11,12 +11,11 @@ header {
 }
 
 header img {
-  padding: 1em;
-  background: #fff;
+  padding-left: 1em;
 }
 
 section {
-  margin-top: 1em;
+
   font-size: 120%;
   padding: 20px;
   background: #fff;
@@ -110,4 +109,20 @@ footer nav {
   background-color: #efefef;
   width: 300px;
   float: left;
+}
+
+pre {
+  font-size: 11px;
+  background-color: #F1F1F3;
+  color: #000044;
+  margin: 0px;
+  padding: 7px;
+}
+
+.autoverflow {
+  overflow:auto;
+}
+
+.showtask pre {
+  margin-right: 17px;
 }

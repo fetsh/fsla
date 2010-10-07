@@ -1,4 +1,12 @@
 <h2><%= @task.title %></h2>
-<p>exp: <%= @task.exp %></p>
-<h3>nZones</h3>
-<%= render :partial => "nzone", :collection => @task.nzones, :as => :nzone %>
+<div class = 'autoverflow showtask'>
+  <div>
+    <pre style="float:left"><%= @text %></pre>
+  </div>
+  <div>
+    One beautiful task with <%= pluralize (@task.nzones.count, 'nzone')  %><br \>
+    Progress: <%= @progress.body %>
+    
+  </div>
+<!-- <%= render :partial => "nzone", :collection => @task.nzones, :as => :nzone %> -->
+</div>

@@ -8,6 +8,8 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     @title = @task.title
+    @text = prepare_text(@task)
+    @progress = get_progress(@task.id)
   end
 
   def new
@@ -25,7 +27,7 @@ class TasksController < ApplicationController
     if @task.save
     
       resp = send_task @task
-      flash[:success] = "ME: Your computation is started; SERVER: #{resp.code}, body #{resp.message}"
+      flash[:success] = "ME: Your computation is started; SERVER: #{resp.body}"
       redirect_to root_path
     else
       @title = 'Start new computation'
@@ -46,26 +48,26 @@ class TasksController < ApplicationController
   private
 
     def send_task(task)
+      data = {  'task' => task.id,
+                'calculation_input' => prepare_text(task)}
+      ask_server(task, data, 'run')
+    end
+    
+    def get_progress(task)
+      data = {'task' => task}
+      ask_server(task, data, 'log')
+    end
+    
+    def ask_server(task, data, action)
       require "net/http"
       require "uri"
 
       uri = URI.parse(get_server)
       http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Post.new(uri.request_uri)
-      data = {  'action' => 'run',
-                'token' => get_token,
-                'task' => task.id,
-                'calculation_input' => prepare_text(task)}
+      get_params = '?action=' + action + '&token=' + get_token
+      request = Net::HTTP::Post.new(uri.request_uri + get_params)
       request.set_form_data(data)
       response = http.request(request)
-    end
-    
-    def get_server
-      Settings.server
-    end
-    
-    def get_token
-      Settings.token
     end
     
     def prepare_text(task)
@@ -99,6 +101,16 @@ class TasksController < ApplicationController
     def append_boolean(task, name, trueval, falseval)
       name + ' = ' + ( task.attributes[name] ? trueval.to_s : falseval.to_s ) + "\n"
     end
+    
+    def get_server
+      Settings.server
+    end
+    
+    def get_token
+      Settings.token
+    end
+
+    
 #    def prepare_file(task)
 #     taskdir = Settings.computer_path + '/' + task.id.to_s
 #      Dir.mkdir(taskdir)
