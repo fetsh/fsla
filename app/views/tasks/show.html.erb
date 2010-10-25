@@ -1,12 +1,26 @@
 <h2><%= @task.title %></h2>
-<div class = 'autoverflow showtask'>
+
+<div class = 'showtask'>
+<table><tr><td>
   <div>
     <pre style="float:left"><%= @text %></pre>
   </div>
+  </td><td width="100%">
   <div>
     One beautiful task with <%= pluralize (@task.nzones.count, 'nzone')  %><br \>
-    Progress: <%= @progress.body %>
+    Progress: <%= @human_progress %>%<br>(<%= @current_time %> picosecond of total <%= @total_time %> picoseconds)
+    
+    <div>
+    <%= link_to 'Download results', download_path(:id => @task.id) %><br>
+    <% if can? :manage, @task -%>
+      <div class="misctask" style='border-top: 1px solid silver; margin-top: 30px;'>
+      <span class="destroy"><%= link_to "Delete Task", @task, :method => :delete,
+                                       :confirm => "You sure?",
+                                       :title => @task.title %></span>
+      <% end -%>
+      </div>
+    </div>
     
   </div>
-<!-- <%= render :partial => "nzone", :collection => @task.nzones, :as => :nzone %> -->
+</td></tr></table>
 </div>

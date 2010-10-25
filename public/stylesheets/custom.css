@@ -130,3 +130,18 @@ pre {
 .showtask pre {
   margin-right: 17px;
 }
+
+.showtask table tr td {
+  vertical-align: top;
+  
+}
+
+a.big_button {-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;background:url("/images/big_button_bg.png") repeat-x scroll center top #87B500;border-color:#DDDDDD #689300 #689300 #DDDDDD;border-style:solid;border-width:0 1px 1px 0;color:#FFFFFF;cursor:pointer;font-size:22px;height:42px;line-height:42px;margin:0;overflow:visible;padding:10px 15px;text-shadow:1px 1px #719E03;}a.big_button:active{background:#87b500;color:#ECF5DE;line-height:44px;}
+
+.alert {
+  background:none repeat scroll 0 0 #FBE3E4;
+  color:#8A1F11;
+  border:2px solid #FBC2C4;
+  margin-bottom:1em;
+  padding:0.8em;
+}

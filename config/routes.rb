@@ -1,9 +1,17 @@
 Aries::Application.routes.draw do
 
 
-  match '/about',   :to => 'pages#about'
+  match 'tasks/all' => 'tasks#show_all', :as => :alltasks
+  match 'tasks/:id/download/' => 'tasks#download', :as => :download
 
+  resources :roles
+  devise_for :users,  :controllers => { :registrations => "users/registrations" }
+  resources :users
   resources :tasks
+
+  
+  
+  match '/about',   :to => 'pages#about'
 
   root :to => 'tasks#index'
 

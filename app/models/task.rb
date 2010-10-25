@@ -17,20 +17,25 @@
 #  deltaSkin     :decimal(, )
 #  courant       :decimal(, )
 #  maxTime       :decimal(, )
-#
 
 class Task < ActiveRecord::Base
   
-  
-  has_many :nzones, :dependent => :destroy
-  accepts_nested_attributes_for :nzones, :reject_if => lambda { |a| a.any?{ |k,v| v.blank? } }, :allow_destroy => true
+  belongs_to :user
+  has_many :nzones, :dependent => :destroy, :inverse_of => :task
+  accepts_nested_attributes_for :nzones
 
   default_scope :order => 'tasks.created_at DESC'
   
   validates :title, :presence => true, :length => { :maximum => 140 }
-  validates_presence_of  :tauPulse, :fluence, :deltaSkin, :courant, :maxTime
+  validates_presence_of  :tauPulse, :fluence, :deltaSkin, :courant, :maxTime, :nzones
   validates_numericality_of :tauPulse, :fluence, :deltaSkin, :courant, :maxTime
   validates_inclusion_of :source, :HydroStage, :HeatStage, :ExchangeStage, :in => [true, false]
-
+  validates :tauPulse, :inclusion => { :in => 1..1_000_000 }
+  validates :fluence, :inclusion => { :in => 0..1_000_000 }
+  validates :deltaSkin, :inclusion => { :in => 1..100 }
+  validates :courant, :inclusion => { :in => 0..1 }
+  validates :maxTime, :inclusion => { :in => 0.01..1000 }
+  validates :user_id, :presence => true
   
+  validates_associated :nzones
 end

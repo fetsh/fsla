@@ -1,20 +1,24 @@
 class TasksController < ApplicationController
 
+  before_filter :authenticate_user!
+  load_and_authorize_resource :except => :index
+
   def index
+    @tasks = current_user.tasks
     @title = 'All your tasks'
-    @tasks = Task.all
   end
 
   def show
-    @task = Task.find(params[:id])
     @title = @task.title
     @text = prepare_text(@task)
     @progress = get_progress(@task.id)
+    @current_time = @progress.body.to_f * 10.power!(12)
+    @total_time = @task.maxTime
+    @human_progress = ((@current_time / @total_time)*100).round
   end
 
   def new
     @title = 'Start new computation'
-    @task = Task.new
     @task.nzones.build
   end
 
@@ -22,8 +26,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(params[:task])
-    
+    @task.user = current_user
     if @task.save
     
       resp = send_task @task
@@ -40,9 +43,23 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    resp = remove_task @task
     @task.destroy
+    flash[:success] = "ME: Task is deleted; SERVER: #{resp.body}"
     redirect_to root_path
+  end
+  
+  def show_all
+    @tasks = Task.all
+    @title = 'All your tasks'
+    authorize! :read, Task
+    render :index
+  end
+  
+  def download
+    @id = params[:id]
+    response = ask_server ( {'task' => @id}, 'zip' )
+    send_data (response.read_body, :filename => "#{@id}.zip", :type => "application/zip")
   end
 
   private
@@ -50,15 +67,25 @@ class TasksController < ApplicationController
     def send_task(task)
       data = {  'task' => task.id,
                 'calculation_input' => prepare_text(task)}
-      ask_server(task, data, 'run')
+      ask_server(data, 'run')
+    end
+    
+    def remove_task(task)
+      data = {'task' => task.id}
+      ask_server(data, 'kill')
     end
     
     def get_progress(task)
       data = {'task' => task}
-      ask_server(task, data, 'log')
+      ask_server(data, 'log')
     end
     
-    def ask_server(task, data, action)
+    def download_zip(task)
+      data = {'task' => task}
+      ask_server(data, 'zip')
+    end
+    
+    def ask_server(data, action)
       require "net/http"
       require "uri"
 

@@ -1,2 +1,15 @@
-<%= render @tasks %>
-<p><%= link_to 'New Task', new_task_path %></p>
+<%= link_to 'Launch Task', new_task_path, :class => 'big_button' %><br><br>
+<hr>
+  <% if params[:action] == 'index' && can? (:manage, :all) -%>
+    <h3>My tasks | <%= link_to 'All Tasks', alltasks_path %></h3>
+  <% elsif params[:action] == "show_all" && can? (:manage, :all) -%>
+    <h3><%= link_to 'My tasks', tasks_path %> | All Tasks</h3>
+  <% else -%>
+    <h3>My Tasks</h3>
+  <% end -%>
+  
+<% unless @tasks.empty? -%>
+  <%= render @tasks %>
+<% else -%>
+  You have no tasks. It's time to create one.
+<% end -%>

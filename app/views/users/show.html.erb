@@ -1,0 +1,34 @@
+<h3><%= @user.login %>
+<% if can? :manage, @user -%>(<%= link_to "Edit", edit_user_path(@user) %> | <%= link_to "Delete", user_path(@user), :confirm => "Are you sure?", :method => :delete %>)<% end -%></h3>
+ 
+<table>
+	<tbody>
+		<tr>
+			<td>Email:</td>
+			<td><%= @user.email %></td>
+		</tr>
+		<% unless @user.roles.empty? -%>
+		  <tr>
+			  <td>Role:</td>
+			  <td><%= @user.roles.first.name %></td>
+		  </tr>
+		<% end -%>
+		<tr>
+			<td>Created at:</td>
+			<td><%= @user.created_at %></td>
+		</tr>
+		<tr>
+			<td>Last Sign In:</td>
+			<td><%= @user.last_sign_in_at %></td>
+		</tr>
+		<tr>
+			<td>Sign In Count:</td>
+			<td><%= @user.sign_in_count %></td>
+		</tr>
+	</tbody>
+</table>
+<hr>
+<h3>My Tasks</h3>
+<% unless @tasks.empty? %>
+  <%= render :partial => 'tasks/task', :collection => @tasks %>
+<% end %>
