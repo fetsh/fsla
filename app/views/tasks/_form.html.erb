@@ -6,7 +6,7 @@
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
-  <table><tr><td>
+  <table><tr><td style="width: 300px; vertical-align: top; padding-top: 15px;">
   <div class="field">
       <%= f.check_box :HydroStage %>
     <%= f.label :HydroStage %>
@@ -20,32 +20,33 @@
     <%= f.label :ExchangeStage %>
   </div>
   <div class="field">
-    <%= f.label :source %>: <%= f.select :source, options_for_select([['Al', true], ['Al_glass', false]]) %> 
+    <%= f.label :source %> <%= f.select :source, options_for_select([['Al', true], ['Al_glass', false]]) %> 
   </div>
-  </td><td>
+  
   <div class="field">
-    <%= f.label :tauPulse %>: <%= f.text_field :tauPulse %> e-15
-  </div>
-  <div class="field">
-    <%= f.label :fluence %>: <%= f.text_field :fluence %>
+    <%= f.label :tauPulse %> <%= f.text_field :tauPulse %> e-15
   </div>
   <div class="field">
-    <%= f.label :deltaSkin %>: <%= f.text_field :deltaSkin %>e-9
+    <%= f.label :fluence %> <%= f.text_field :fluence %>
   </div>
   <div class="field">
-    <%= f.label :courant %>: <%= f.text_field :courant %>
+    <%= f.label :deltaSkin %> <%= f.text_field :deltaSkin %> e-9
   </div>
   <div class="field">
-    <%= f.label :maxTime %>: <%= f.text_field :maxTime %>e-12
+    <%= f.label :courant %> <%= f.text_field :courant %>
   </div>
-  </td></tr></table>
+  <div class="field">
+    <%= f.label :maxTime %> <%= f.text_field :maxTime %> e-12
+  </div>
+  
+  </td><td style="vertical-align: top; padding-top: 15px;">
     <div style="overflow:auto; width: 100%;">
       <% f.fields_for :nzones do |builder| %>
         <%= render 'nzone_fields', :f => builder %>
       <% end %>
-<p>      <%= link_to_add_fields "Add Zone", f, :nzones %></p> 
+<p style="clear:both; padding-left: 20px;">      <%= link_to_add_fields "Add Zone", f, :nzones %></p> 
     </div>
-  
+  </td></tr></table>
   
   <div class="actions">
     <%= f.submit %>

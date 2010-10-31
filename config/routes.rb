@@ -3,9 +3,11 @@ Aries::Application.routes.draw do
 
   match 'tasks/all' => 'tasks#show_all', :as => :alltasks
   match 'tasks/:id/download/' => 'tasks#download', :as => :download
+  match 'tasks/:id/show_progress/' => 'tasks#show_progress', :as => :progress
 
   resources :roles
-  devise_for :users,  :controllers => { :registrations => "users/registrations" }
+  
+  devise_for :users
   resources :users
   resources :tasks
 

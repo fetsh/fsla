@@ -24,9 +24,16 @@ class Nzone < ActiveRecord::Base
   validates :l,     :inclusion => { :in => 1..5000 }
   validates :nSize, :inclusion => { :in => 1..10_000 }
   validates :ro,    :inclusion => { :in => 50..4000 }
-  validates :ti,    :inclusion => { :in => 3_000..99_000}
-  validates :te,    :inclusion => { :in => 3_000..99_000}
+  validates :ti,    :inclusion => { :in => 299..99_000}
+  validates :te,    :inclusion => { :in => 299..99_000}
   validates :v,     :inclusion => { :in => -10_000..10_000}
 
+  DEFAULTS = {:l              => 200,
+              :nSize          => 200,
+              :ro             => 2700,
+              :ti             => 300,
+              :te             => 300,
+              :v              => 0}
+  
   
 end

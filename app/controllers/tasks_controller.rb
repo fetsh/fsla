@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  
+  include ServerTalking
 
   before_filter :authenticate_user!
   load_and_authorize_resource :except => :index
@@ -11,15 +13,13 @@ class TasksController < ApplicationController
   def show
     @title = @task.title
     @text = prepare_text(@task)
-    @progress = get_progress(@task.id)
-    @current_time = @progress.body.to_f * 10.power!(12)
-    @total_time = @task.maxTime
-    @human_progress = ((@current_time / @total_time)*100).round
+    @current_time, @total_time, @human_progress = progress_thingy(@task)
   end
 
   def new
+    @task = Task.new(Task::DEFAULTS)
     @title = 'Start new computation'
-    @task.nzones.build
+    @task.nzones.build(Nzone::DEFAULTS)
   end
 
   def edit
@@ -28,10 +28,15 @@ class TasksController < ApplicationController
   def create
     @task.user = current_user
     if @task.save
-    
       resp = send_task @task
-      flash[:success] = "ME: Your computation is started; SERVER: #{resp.body}"
-      redirect_to root_path
+      if resp.code == "200"
+        flash[:success] = "ME: Your computation is started; SERVER: #{resp.body}"
+        redirect_to root_path
+      else
+        task.update_attribute(:status, "unable to launch")
+        flash[:error] = "I think server is down, so your is created, but not launched."
+        redirect_to @task
+      end
     else
       @title = 'Start new computation'
       render 'new'
@@ -44,9 +49,15 @@ class TasksController < ApplicationController
 
   def destroy
     resp = remove_task @task
-    @task.destroy
-    flash[:success] = "ME: Task is deleted; SERVER: #{resp.body}"
-    redirect_to root_path
+    if resp.code == "200"
+      @task.destroy
+      flash[:success] = "ME: Task is deleted; SERVER: #{resp.body}"
+      redirect_to root_path
+    else
+      task.update_attribute(:status, "unable to delete from server")
+      flash[:error] = "Something went wrong on server"
+      render :show
+    end
   end
   
   def show_all
@@ -58,83 +69,34 @@ class TasksController < ApplicationController
   
   def download
     @id = params[:id]
-    response = ask_server ( {'task' => @id}, 'zip' )
-    send_data (response.read_body, :filename => "#{@id}.zip", :type => "application/zip")
+    response = ask_server( {'task' => @id}, 'zip' )
+    send_data(response.read_body, :filename => "#{@id}.zip", :type => "application/zip")
+  end
+  
+  def show_progress
+    @task = Task.find_by_id(params[:id])
+    @current_time, @total_time, @human_progress = progress_thingy(@task)
+    unless @current_time == "server error"
+      render "tasks/_progress", :layout => false 
+    end
   end
 
+
   private
-
-    def send_task(task)
-      data = {  'task' => task.id,
-                'calculation_input' => prepare_text(task)}
-      ask_server(data, 'run')
-    end
     
-    def remove_task(task)
-      data = {'task' => task.id}
-      ask_server(data, 'kill')
-    end
-    
-    def get_progress(task)
-      data = {'task' => task}
-      ask_server(data, 'log')
-    end
-    
-    def download_zip(task)
-      data = {'task' => task}
-      ask_server(data, 'zip')
-    end
-    
-    def ask_server(data, action)
-      require "net/http"
-      require "uri"
-
-      uri = URI.parse(get_server)
-      http = Net::HTTP.new(uri.host, uri.port)
-      get_params = '?action=' + action + '&token=' + get_token
-      request = Net::HTTP::Post.new(uri.request_uri + get_params)
-      request.set_form_data(data)
-      response = http.request(request)
-    end
-    
-    def prepare_text(task)
-      text = "EOSType = table\n	TableDir = new\n	TableFlag = extended\nMethod = lagrange\n"
-      text << append_boolean(task, "HydroStage", "1", "0")
-      text << append_boolean(task, "HeatStage", "1", "0")
-      text << append_boolean(task, "ExchangeStage", "1", "0")
-      text << "IonizationStage = 0\n\n"
-      text << append_boolean(task, "source", "Al", "Al_glass")
-      text << "tauPulse = " + task.tauPulse.to_s + "e-15\n"
-      text << "fluence = " + task.fluence.to_s + "\n"
-      text << "deltaSkin = " + task.deltaSkin.to_s + "e-9\n\n"
-      text << "courant = " + task.courant.to_s + "\n"
-      text << "viscosity = 1\n\n"
-      text << "maxTime = " + task.maxTime.to_s + "e-12\n\n"
-      text << "nZones = " + task.nzones.count.to_s + "\n\n"
-      
-      task.nzones.each do |nzone|
-        text << "l = " + nzone.l.to_s + "e-9\n"
-        text << "nSize = " + nzone.nSize.to_s + "\n"
-        text << "ro = " + nzone.ro.to_s + "\n"
-        text << "ti = " + nzone.ti.to_s + "\n"
-        text << "te = " + nzone.te.to_s + "\n"
-        text << "v = " + nzone.v.to_s + "\n"
-        text << "exp = " + nzone.exp.to_s + "\n\n"
+    def progress_thingy(task)
+      current_time = task.progress
+      if current_time == "server error"
+        return "server error", "server error", "server error"
       end
-      
-      text
-    end
-
-    def append_boolean(task, name, trueval, falseval)
-      name + ' = ' + ( task.attributes[name] ? trueval.to_s : falseval.to_s ) + "\n"
-    end
-    
-    def get_server
-      Settings.server
-    end
-    
-    def get_token
-      Settings.token
+      total_time = task.maxTime
+      progress = ((current_time / total_time)*100).round
+      progress = 0 if progress < 0
+      human_progress = progress.to_s + '%'
+      if (progress == 100 and task.status != "complete")
+          task.update_attribute(:status, "complete")
+      end
+      return current_time, total_time, human_progress
     end
 
     

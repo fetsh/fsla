@@ -1,3 +1,15 @@
+<% content_for :js do %>
+ <script type="text/javascript"charset="UTF-8">  
+
+  function updateTimeFunc(){
+    new Ajax.Updater('progress', '/tasks/' + <%= @task.id %> + '/show_progress'); 
+  }
+
+  var e = new PeriodicalExecuter(updateTimeFunc, 10);
+
+</script>
+<% end %> 
+
 <h2><%= @task.title %></h2>
 
 <div class = 'showtask'>
@@ -8,8 +20,14 @@
   </td><td width="100%">
   <div>
     One beautiful task with <%= pluralize (@task.nzones.count, 'nzone')  %><br \>
-    Progress: <%= @human_progress %>%<br>(<%= @current_time %> picosecond of total <%= @total_time %> picoseconds)
     
+    <div id="progress">
+      <% if @current_time == "server error" %>
+        Something went wrong on our server. Come back later.
+      <% else %>
+        <%= render 'progress' %>
+      <% end %>
+    </div>
     <div>
     <%= link_to 'Download results', download_path(:id => @task.id) %><br>
     <% if can? :manage, @task -%>

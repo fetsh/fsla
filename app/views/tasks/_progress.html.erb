@@ -1,0 +1,3 @@
+Progress: <span class="progress <%= @human_progress == "100%" ? 'complete' : 'incomplete' %>"><%= @human_progress %><% if @human_progress == "100%" %> — Task complete<% end %></span>
+    
+    <br>(<%= @current_time %> picosecond of total <%= @total_time %> picoseconds)

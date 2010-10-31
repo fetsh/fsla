@@ -20,6 +20,8 @@
 
 class Task < ActiveRecord::Base
   
+  include ServerTalking
+  
   belongs_to :user
   has_many :nzones, :dependent => :destroy, :inverse_of => :task
   accepts_nested_attributes_for :nzones
@@ -38,4 +40,24 @@ class Task < ActiveRecord::Base
   validates :user_id, :presence => true
   
   validates_associated :nzones
+  
+  DEFAULTS = {:HydroStage     => true,
+              :HeatStage      => true,
+              :ExchangeStage  => true,
+              :source         => true,
+              :tauPulse       => 120,
+              :fluence        => 650,
+              :deltaSkin      => 10,
+              :courant        => 0.1,
+              :maxTime        => 100 }
+  
+  def progress
+    @progress = get_progress(self.id)
+    if @progress.code == "200"
+      @current_time = @progress.body.to_f * 10.power!(12)
+    else
+      return "server error"
+    end
+  end
+  
 end

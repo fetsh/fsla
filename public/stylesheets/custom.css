@@ -111,7 +111,7 @@ footer nav {
   margin: 7px;
   border: solid 1px #BDBDBD;
   background-color: #efefef;
-  width: 300px;
+  width: 200px;
   float: left;
 }
 
@@ -144,4 +144,38 @@ a.big_button {-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 
   border:2px solid #FBC2C4;
   margin-bottom:1em;
   padding:0.8em;
+}
+
+table .field label, .nzones_form label {
+  width: 8em;
+float: left;
+text-align: right;
+padding: 0; margin: 0; padding-right: 10px;
+display: block
+}
+.nzones_form label {
+  width: 4em;
+}
+
+table .field input, .nzones_form input {
+  width: 5em;
+  margin: 0; padding: 0;
+
+}
+.field {
+  margin-top: 5px;
+}
+
+.progress {
+  -moz-border-radius:    3px;
+  -webkit-border-radius: 3px;
+  border-radius:         3px;
+  padding: 3px;
+}
+.progress.complete {
+  background-color: #A6FF76;
+}
+
+.progress.incomplete {
+  background-color: #FFD376;
 }
