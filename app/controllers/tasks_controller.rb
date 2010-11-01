@@ -63,7 +63,7 @@ class TasksController < ApplicationController
   def show_all
     @tasks = Task.all
     @title = 'All your tasks'
-    authorize! :read, Task
+    authorize! :manage, :all
     render :index
   end
   

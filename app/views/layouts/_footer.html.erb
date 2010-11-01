@@ -2,6 +2,9 @@
   <nav class="round">
     <ul>
       <li><%= link_to "About", about_path %></li>
+      <% if can? :manage, User %>
+        <li><%= link_to "Manage users", users_path %></li>
+      <% end %>
     </ul>
   </nav>
 </footer>
