@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101031193514) do
+ActiveRecord::Schema.define(:version => 20110128131933) do
 
   create_table "nzones", :force => true do |t|
     t.integer  "task_id"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20101031193514) do
     t.boolean  "HydroStage"
     t.boolean  "HeatStage"
     t.boolean  "ExchangeStage"
-    t.boolean  "source"
+    t.string   "source"
     t.decimal  "tauPulse"
     t.decimal  "fluence"
     t.decimal  "deltaSkin"

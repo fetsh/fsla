@@ -29,9 +29,9 @@ class Task < ActiveRecord::Base
   default_scope :order => 'tasks.created_at DESC'
   
   validates :title, :presence => true, :length => { :maximum => 140 }
-  validates_presence_of  :tauPulse, :fluence, :deltaSkin, :courant, :maxTime, :nzones
+  validates_presence_of  :tauPulse, :fluence, :deltaSkin, :courant, :maxTime, :nzones, :source
   validates_numericality_of :tauPulse, :fluence, :deltaSkin, :courant, :maxTime
-  validates_inclusion_of :source, :HydroStage, :HeatStage, :ExchangeStage, :in => [true, false]
+  validates_inclusion_of :HydroStage, :HeatStage, :ExchangeStage, :in => [true, false]
   validates :tauPulse, :inclusion => { :in => 1..1_000_000 }
   validates :fluence, :inclusion => { :in => 0..1_000_000 }
   validates :deltaSkin, :inclusion => { :in => 1..100 }
@@ -50,6 +50,7 @@ class Task < ActiveRecord::Base
               :deltaSkin      => 10,
               :courant        => 0.1,
               :maxTime        => 100 }
+  SOURCE = ['Al', 'Al_glass', 'Al_glass_sq']
   
   def progress
     @progress = get_progress(self.id)

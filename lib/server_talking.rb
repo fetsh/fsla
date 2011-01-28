@@ -40,7 +40,7 @@ private
       text << append_boolean(task, "HeatStage", "1", "0")
       text << append_boolean(task, "ExchangeStage", "1", "0")
       text << "IonizationStage = 0\n\n"
-      text << append_boolean(task, "source", "Al", "Al_glass")
+      text << "source = " + task.source.to_s + "\n"
       text << "tauPulse = " + task.tauPulse.to_s + "e-15\n"
       text << "fluence = " + task.fluence.to_s + "\n"
       text << "deltaSkin = " + task.deltaSkin.to_s + "e-9\n\n"

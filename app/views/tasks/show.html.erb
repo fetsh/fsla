@@ -1,3 +1,4 @@
+<% unless @human_progress == '100%' %>
 <% content_for :js do %>
  <script type="text/javascript"charset="UTF-8">  
 
@@ -9,6 +10,8 @@
 
 </script>
 <% end %> 
+<% end %> 
+
 
 <h2><%= @task.title %></h2>
 
@@ -22,6 +25,7 @@
     One beautiful task with <%= pluralize (@task.nzones.count, 'nzone')  %><br \>
     
     <div id="progress">
+    
       <% if @current_time == "server error" %>
         Something went wrong on our server. Come back later.
       <% else %>

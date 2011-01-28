@@ -20,7 +20,7 @@
     <%= f.label :ExchangeStage %>
   </div>
   <div class="field">
-    <%= f.label :source %> <%= f.select :source, options_for_select([['Al', true], ['Al_glass', false]]) %> 
+    <%= f.label :source %> <%= f.select :source, Task::SOURCE %> 
   </div>
   
   <div class="field">
