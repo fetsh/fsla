@@ -1,55 +1,71 @@
 <%= form_for @task  do |f| %>
 
   <%= render 'shared/error_messages', :object => f.object %>
+  <table id="task-form-table">
+    <tr>
+      <td class="stage-number"><span>1</span></td>
+      <td>
+        <%= f.text_field :title, :value => "New task" + " at "+ @ctime.strftime("%d %b, %H:%M:%S ") %>
+        <div id="title-hint">(change title)</div>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="stage-number"><span>2</span></td>
+      <td>
+        <h3>Calculation stages</h3>
+        <%= f.check_box :HydroStage %><%= f.label :HydroStage %>&nbsp;&nbsp;&nbsp;
+        <%= f.check_box :HeatStage %><%= f.label :HeatStage %>&nbsp;&nbsp;&nbsp;
+        <%= f.check_box :ExchangeStage %><%= f.label :ExchangeStage %>
+      </td>
+    </tr>
+    <tr>
+      <td class="stage-number"><span>3</span></td>
+      <td id="pulse-parameters">
+        <h3>Pulse parameters</h3>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <table><tr><td style="width: 300px; vertical-align: top; padding-top: 15px;">
-  <div class="field">
-      <%= f.check_box :HydroStage %>
-    <%= f.label :HydroStage %>
-  </div>
-  <div class="field">
-    <%= f.check_box :HeatStage %>
-    <%= f.label :HeatStage %>
-  </div>
-  <div class="field">
-    <%= f.check_box :ExchangeStage %>
-    <%= f.label :ExchangeStage %>
-  </div>
-  <div class="field">
-    <%= f.label :source %> <%= f.select :source, Task::SOURCE %> 
-  </div>
-  
-  <div class="field">
-    <%= f.label :tauPulse %> <%= f.text_field :tauPulse %> <img src="http://chart.googleapis.com/chart?cht=tx&chl=e^{-15}s">
-  </div>
-  <div class="field">
-    <%= f.label :fluence %> <%= f.text_field :fluence, :style => 'vertical-align:top;' %> <img src="http://chart.googleapis.com/chart?cht=tx&chl=\frac{J}{m^2}"  style="margin-top: -7px;" >
-  </div>
-  <div class="field">
-    <%= f.label :deltaSkin %> <%= f.text_field :deltaSkin %> <img src="http://chart.googleapis.com/chart?cht=tx&chl=e^{-9}m">
-  </div>
-  <div class="field">
-    <%= f.label :courant %> <%= f.text_field :courant %>
-  </div>
-  <div class="field">
-    <%= f.label :maxTime %> <%= f.text_field :maxTime %> <img src="http://chart.googleapis.com/chart?cht=tx&chl=e^{-12}s">
-  </div>
-  
-  </td><td style="vertical-align: top; padding-top: 15px;">
-    <div style="overflow:auto; width: 100%;">
-      <% f.fields_for :nzones do |builder| %>
-        <%= render 'nzone_fields', :f => builder %>
-      <% end %>
-<p style="clear:both; padding-left: 20px;">      <%= link_to_add_fields "Add Zone", f, :nzones %></p> 
-    </div>
-  </td></tr></table>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+                <table>
+                  <tr>
+                    <td class="key" colspan="2"><%= f.label :source %>&nbsp;&nbsp;</td><td colspan="2"><%= f.select :source, Task::SOURCE %></td>
+                  </tr>
+                  <tr>
+                    <td class="key"><img src="http://chart.googleapis.com/chart?cht=tx&chs=17&chl=\tau_{L}"></td><td>=</td><td><%= f.text_field :tauPulse %></td><td><img src="http://chart.googleapis.com/chart?cht=tx&chl=\cdot10^{-15}\hspace{6}s"></td>
+                  </tr>
+                  <tr>
+                    <td class="key"><img src="http://chart.googleapis.com/chart?cht=tx&chs=18&chl=F_{abs}"></td><td>=</td><td><%= f.text_field :fluence %></td><td><img src="http://chart.googleapis.com/chart?cht=tx&chl=\frac{J}{m^2}"></td>
+                  </tr>
+                  <tr>
+                    <td class="key"><img src="http://chart.googleapis.com/chart?cht=tx&chs=18&chl=\delta_{skin}"></td><td>=</td><td><%= f.text_field :deltaSkin %></td><td><img src="http://chart.googleapis.com/chart?cht=tx&chl=\cdot10^{-9}\hspace{6}m"></td>
+                  </tr>
+                  <tr>
+                    <td class="key"><img src="http://chart.googleapis.com/chart?cht=tx&chs=14&chl=\rm{Courant}"></td><td>=</td><td><%= f.text_field :courant %></td><td></td>
+                  </tr>
+                  <tr>
+                    <td class="key"><img src="http://chart.googleapis.com/chart?cht=tx&chs=18&chl=t_{max}"></td><td>=</td><td><%= f.text_field :maxTime %></td><td><img src="http://chart.googleapis.com/chart?cht=tx&chl=\cdot10^{-12}\hspace{6}s"></
+                  </tr>
+                </table>
 
+      </td>
+    </tr>
+    <tr>
+      <td class="stage-number"><span>4</span></td>
+      <td>
+        <h3>Zones</h3>
+        <div style="overflow:auto; width: 100%;">
+          <% f.fields_for :nzones do |builder| %>
+            <%= render 'nzone_fields', :f => builder %>
+          <% end %>
+          <p style="clear:both; padding-left: 20px;">      <%= link_to_add_fields "Add Zone", f, :nzones %></p> 
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="stage-number"><span>5</span></td>
+      <td>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      </td>
+    </tr>
+  </table>
 <% end %>

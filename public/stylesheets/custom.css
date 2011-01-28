@@ -108,10 +108,11 @@ footer nav {
 
 .nzones_form {
   padding: 7px;
+  padding-left: 15px;
   margin: 7px;
   border: solid 1px #BDBDBD;
   background-color: #efefef;
-  width: 200px;
+  width: 150px;
   float: left;
 }
 
@@ -178,4 +179,128 @@ table .field input, .nzones_form input {
 
 .progress.incomplete {
   background-color: #FFD376;
+}
+
+/* NEW TASK FORM */
+
+#task-form-table, #task-form-table tr, #task-form-table tr td { border: 0;  padding: 0;  margin: 0; }
+
+#task-form-table table tr td  { border: 0;  padding: 0;  margin: 0; }
+
+#task-form-table tr td {
+  padding-top: 20px;
+  margin-top: 20px;
+}
+#task-form-table table tr td {
+  vertical-align: middle;
+  height: 30px;
+  padding-bottom: 15px;
+  }
+td.key {
+  text-align: right;
+  width: 60px;
+}
+td.key img {
+  padding-top: 3px;
+}
+td.key + td + td {
+  width: 65px;
+}
+td.key + td {
+  width: 10px;
+}
+
+.stage-number {
+  width: 50px;
+  vertical-align: top;
+  }
+.stage-number span {
+    -webkit-border-top-right-radius: 30px;
+    -webkit-border-bottom-right-radius: 30px;
+    -moz-border-radius-topright: 30px;
+    -moz-border-radius-bottomright: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: #87B500;
+    color: #FFFFFF;
+    font-size: 22px;
+    height: 42px;
+    line-height: 42px;
+    margin: 0;
+    overflow: visible;
+    padding: 10px 15px;
+    padding-left: 10px;
+    text-shadow: 1px 1px #719E03;
+}
+
+#task-form-table h3 {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  padding-top: 10px;
+  font-size: 20px;
+  color: #8A8A8A;
+  font-weight: bold;
+}
+
+input#task_title {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+  background: white;
+  border: 0;
+  border-bottom: 1px solid gray;
+  font-size: 23px;
+  color: black;
+  margin-top: 5px;
+}
+input#task_title:focus, input#task_title:hover {
+  background: #FFF1A8;
+}
+
+#pulse-parameters label, .nzones_form label {
+  font-weight: normal;
+}
+#pulse-parameters input {
+  padding: 0px;
+  margin: 0px;
+  padding-left: 5px;
+  padding-top: 3px;
+  font-size: 15px;
+  border: 0;
+  
+  border-bottom: 1px solid black;
+  width: 65px;
+}
+#pulse-parameters input:focus, #pulse-parameters input:hover {
+  background: #FFF1A8;
+}
+
+#source-cell {
+  width: 150px;
+  vertical-align: top;
+}
+
+#title-hint {
+  position: relative;
+  top: -15px;
+  left: 350px;
+  font-size: small;
+}
+
+.nzones_form input {
+  padding: 0px;
+  margin: 0px;
+  padding-left: 5px;
+  padding-top: 3px;
+  font-size: 13px;
+  border: 0;
+  border-bottom: 1px solid black;
+  background: #EFEFEF;
+  width: 45px;
+  position: relative;
+  top: -2px;
+}
+.nzones_form input:focus, .nzones_form input:hover {
+  background: #FFF1A8;
+}
+.nzones_form div {
+  padding-top: 5px;
 }

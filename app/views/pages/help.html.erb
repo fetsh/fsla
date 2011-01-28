@@ -1,0 +1,27 @@
+<h1>Help</h1>
+<h2>Calculation stages</h2>
+<p>3 stages included in numerical model, each of them can be turned off.<br>
+<strong>HydroStage:</strong> 2T-hydrodynamic equations with taking into account laser radiation absorbation<br>
+<strong>HeatStage:</strong> Electron heat-conductivity equation<br>
+<strong>ExchangeStage:</strong> 2T-relaxation between electrons and lattice of metal</p>
+<h2>Pulse parameters</h2>
+<p>Source — configuration of experiment, radiation propagates from the left, 3 configurations are available.</p>
+
+<p><strong>“Al”</strong> – “vacuum-Al-vacuum” or ”vacuum-Al-glass” configuration, gaussian pulse<br>
+<strong>“Al_glass”</strong> – “vacuum-glass-Al” configuration, gaussian pulse<br>
+<strong>“Al_glass_sq”</strong> – “vacuum-glass-Al”, rectangular pulse</p>
+Gaussian pulse: 
+Rectangular pulse: 
+ - duration of the pulse
+ - absorbed fluence
+- skin-layer thickness
+Courant - courant number
+ - final time
+<h2>Zones</h2>
+<p>Irradiated substanse is representated with zones, each zone has constant values of density, electron and electron and ion temperatures. Metal absorbs the radiation, glass does not. When calculating with "Al" and "Al_glass" the first zone should be glass.<p>
+<p>L - length<br>
+N - number of nodes in the mesh. Can be set for the first zone only, step is constant.<br>
+ - density.<br>
+ - ion temperature<br>
+ - electron temperature<br>
+v - mechanical velocity</p>

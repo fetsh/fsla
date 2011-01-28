@@ -1,6 +1,10 @@
 class PagesController < ApplicationController
   def about
-    @title = 'Aries Diser'
+    @title = 'FSLA'
+  end
+  
+  def help
+    @title = 'FSLA — Help'
   end
 
 end

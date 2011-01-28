@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
   
+  require 'time'
+  
   include ServerTalking
 
   before_filter :authenticate_user!
@@ -19,6 +21,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new(Task::DEFAULTS)
     @title = 'Start new computation'
+    @ctime = Time.now
     @task.nzones.build(Nzone::DEFAULTS)
   end
 
