@@ -21,12 +21,12 @@ class Nzone < ActiveRecord::Base
   
   validates_presence_of :l
   validates_numericality_of :l
-  validates :l,     :inclusion => { :in => 1..5000 }
-  validates :nSize, :inclusion => { :in => 1..10_000 }
+  validates :l,     :inclusion => { :in => 0..100_000 }
+  validates :nSize, :inclusion => { :in => 0..10_000 }
   validates :ro,    :inclusion => { :in => 50..4000 }
   validates :ti,    :inclusion => { :in => 299..99_000}
   validates :te,    :inclusion => { :in => 299..99_000}
-  validates :v,     :inclusion => { :in => -10_000..10_000}
+  validates :v,     :inclusion => { :in => -100_000..100_000}
 
   DEFAULTS = {:l              => 200,
               :nSize          => 200,

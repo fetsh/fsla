@@ -29,6 +29,7 @@ class TasksController < ApplicationController
   end
 
   def create
+    @ctime = Time.now
     @task.user = current_user
     if @task.save
       resp = send_task @task

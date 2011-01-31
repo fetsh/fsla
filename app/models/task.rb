@@ -32,11 +32,11 @@ class Task < ActiveRecord::Base
   validates_presence_of  :tauPulse, :fluence, :deltaSkin, :courant, :maxTime, :nzones, :source
   validates_numericality_of :tauPulse, :fluence, :deltaSkin, :courant, :maxTime
   validates_inclusion_of :HydroStage, :HeatStage, :ExchangeStage, :in => [true, false]
-  validates :tauPulse, :inclusion => { :in => 1..1_000_000 }
+  validates :tauPulse, :inclusion => { :in => 0..1_000_000_000 }
   validates :fluence, :inclusion => { :in => 0..1_000_000 }
   validates :deltaSkin, :inclusion => { :in => 1..100 }
   validates :courant, :inclusion => { :in => 0..1 }
-  validates :maxTime, :inclusion => { :in => 0.01..1000 }
+  validates :maxTime, :inclusion => { :in => 0..1_000_000 }
   validates :user_id, :presence => true
   
   validates_associated :nzones
