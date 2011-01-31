@@ -1,0 +1,26 @@
+<h2>Calculation stages</h2>
+<p>3 stages included in numerical model, each of them can be turned off.<br>
+<strong>HydroStage:</strong> 2T-hydrodynamic equations with taking into account laser radiation absorbation<br>
+<strong>HeatStage:</strong> Electron heat-conductivity equation<br>
+<strong>ExchangeStage:</strong> 2T-relaxation between electrons and lattice of metal</p>
+<h2>Pulse parameters</h2>
+<p>Source — configuration of experiment, radiation propagates from the left, 3 configurations are available.</p>
+<%= image_tag("source2.png", :alt => "Source") %>
+<p><strong>“Al”</strong> – “vacuum-Al-vacuum” or ”vacuum-Al-glass” configuration, gaussian pulse<br>
+<strong>“Al_glass”</strong> – “vacuum-glass-Al” configuration, gaussian pulse<br>
+<strong>“Al_glass_sq”</strong> – “vacuum-glass-Al”, rectangular pulse</p>
+<p>Gaussian pulse: <img src="http://chart.googleapis.com/chart?cht=tx&chl=J_{L}=\frac{F_{abs}}{\tau_{L}\delta_{skin}\sqrt{\pi }\rho}exp\left(-\frac{t^2}{\tau_{L}^2}\right) exp\left(-\frac{x}{\delta}\right)"><br>
+Rectangular pulse: <img src="http://chart.googleapis.com/chart?cht=tx&chl=J_%7BL%7D%3D%5Cleft%5Clbrace%20%5Cfrac%7BF_%7Babs%7D%7D%7B%5Ctau_%7BL%7D%5Cdelta_%7Bskin%7D%5Crho%7Dexp%5Cleft(%20-%5Cfrac%7Bx%7D%7B%5Cdelta%7D%20%5Cright)%2C%5Chspace%7B4%7D%200%3Ct%3C%5Ctau_%7BL%7D%20%5C%5C0%2C%5Chspace%7B4%7D%20t%3E%5Ctau_%7BL%7D%5Cright."></p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chs=17&chl=\tau_{L}"> - duration of the pulse</br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=18&chl=F_{abs}"> - absorbed fluence<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=18&chl=\delta_{skin}"> - skin-layer thickness<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=14&chl=\rm{Courant}"> - courant number<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=18&chl=t_{max}"> - final time</p>
+<h2>Zones</h2>
+<p>Irradiated substanse is representated with zones, each zone has constant values of density, electron and electron and ion temperatures. Metal absorbs the radiation, glass does not. When calculating with "Al" and "Al_glass" the first zone should be glass.</p>
+<p>L - length<br>
+N - number of nodes in the mesh. Can be set for the first zone only, step is constant.<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chl=\rho"> - density.<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chl=T_i"> - ion temperature<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chl=T_e"> - electron temperature<br>
+<img src="http://chart.googleapis.com/chart?cht=tx&chs=11&chl=v"> - mechanical velocity</p>

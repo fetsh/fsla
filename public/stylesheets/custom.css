@@ -233,7 +233,7 @@ td.key + td {
     text-shadow: 1px 1px #719E03;
 }
 
-#task-form-table h3 {
+#task-form-table h3, #help h2 {
   font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
   padding-top: 10px;
   font-size: 20px;
