@@ -1,31 +1,42 @@
 <div class='nzones_form round'>
-<div>
-  <img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=L"> = 
-  <%= f.text_field :l %> <img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=\cdot10^{-9}">
-</div>
-<div>
-  <img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=N"> = 
-  <%= f.text_field :nSize %>
-</div>
-<div>
-  <img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=\rho"> = 
-  <%= f.text_field :ro %>
-</div>
-<div>
-  <img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=T_i"> = 
-  <%= f.text_field :ti %>
-</div>
-<div>
-  <img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=T_e"> = 
-  <%= f.text_field :te %>
-</div>
-<div>
-  <img src="http://chart.googleapis.com/chart?cht=tx&chs=11&chf=bg,s,EFEFEF&chl=v"> = 
-  <%= f.text_field :v %>
-</div>
-<div>
+  <table>
+  <tr>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=L"></td><td> = </td>
+  <td><%= f.text_field :l %></td>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=\cdot10^{-9}\hspace{6}m"></td>
+  </tr>
+
+  <tr>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=N"></td><td> = </td>
+  <td colspan="2"><%= f.text_field :nSize %></td>
+  </tr>
+
+  <tr>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=\rho"></td><td> = </td>
+  <td><%= f.text_field :ro %></td>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=26&chf=bg,s,EFEFEF&chl=\frac{kg}{m^3}"></td>
+  </tr>
+
+  <tr>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=T_i"></td><td> = </td>
+  <td><%= f.text_field :ti %></td>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=12&chf=bg,s,EFEFEF&chl=K"></td>
+  </tr>
+
+  <tr>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=15&chf=bg,s,EFEFEF&chl=T_e"></td><td> = </td>
+  <td><%= f.text_field :te %></td>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=12&chf=bg,s,EFEFEF&chl=K"></td>
+  </tr>
+
+  <tr>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=11&chf=bg,s,EFEFEF&chl=v"></td><td> = </td>
+  <td><%= f.text_field :v %></td>
+  <td><img src="http://chart.googleapis.com/chart?cht=tx&chs=22&chf=bg,s,EFEFEF&chl=\frac{m}{s}"></td>
+  </tr>
+  </table>
   <%= f.hidden_field(:exp, :value => "0.0") %> 
-</div>
+
 <%= f.hidden_field :_destroy %>
 <%= link_to_function 'remove', 'remove_nzone(this)' %>
     </div>

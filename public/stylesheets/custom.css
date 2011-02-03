@@ -196,6 +196,15 @@ table .field input, .nzones_form input {
   height: 30px;
   padding-bottom: 15px;
   }
+  
+#task-form-table .nzones_form table tr td {
+  vertical-align: middle;
+  padding-bottom: 0px;
+  }
+#task-form-table .nzones_form table {
+  margin-bottom: 0px;
+  margin-top: 7px;
+}
 td.key {
   text-align: right;
   width: 60px;
